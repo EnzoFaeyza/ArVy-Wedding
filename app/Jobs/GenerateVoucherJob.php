@@ -2,9 +2,10 @@
 
 namespace App\Jobs;
 
+use App\Mail\VoucherNotification;
 use App\Models\Guest;
 use App\Models\Voucher;
-use App\Mail\VoucherNotification;
+use App\Services\WahaClient;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
@@ -43,19 +44,45 @@ class GenerateVoucherJob implements ShouldQueue
             'status' => 'unused',
         ]);
 
-        // Generate QR PNG
-        $qrPng = QrCode::format('png')
+        if (config('rsvp.use_whatsapp', false)) {
+            $this->sendViaWhatsApp($voucher);
+        } else {
+            $qrPng = $this->generateQr($voucher->code);
+            $this->sendViaEmail($qrPng, $voucher->code);
+        }
+    }
+
+    protected function generateQr(string $code): string
+    {
+        return QrCode::format('png')
             ->size(300)
             ->errorCorrection('H')
-            ->generate($voucher->code);
+            ->generate($code);
+    }
 
-        // Konversi Base64
-        $qrCodeBase64 = "data:image/png;base64," . base64_encode($qrPng);
-
-        // Kirim email
+    protected function sendViaEmail(string $qrPng, string $voucherCode): void
+    {
         Mail::to($this->guest->email)
-            ->send(new VoucherNotification($this->guest, $qrCodeBase64, $voucher->code));
+            ->send(new VoucherNotification($this->guest, $qrPng, $voucherCode));
 
-        Log::info("Voucher terkirim ke " . $this->guest->email);
+        Log::info("Voucher terkirim via email ke " . $this->guest->email);
+    }
+
+    protected function sendViaWhatsApp(Voucher $voucher): void
+    {
+        $voucherUrl = route('voucher.show', $voucher->code);
+
+        $message = implode("\n", [
+            "Hai {$this->guest->name}!",
+            "Terima kasih sudah melakukan RSVP. Berikut kode voucher diskon 10% kamu:",
+            $voucher->code,
+            "",
+            "Tunjukkan kode atau QR pada tautan berikut saat menukarkan:",
+            $voucherUrl,
+        ]);
+
+        app(WahaClient::class)->sendText($this->guest->phone, $message);
+
+        Log::info("Voucher terkirim via WhatsApp ke " . $this->guest->phone);
     }
 }

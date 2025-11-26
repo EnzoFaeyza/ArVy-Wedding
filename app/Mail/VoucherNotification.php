@@ -12,19 +12,20 @@ class VoucherNotification extends Mailable
     use Queueable, SerializesModels;
 
     public $guest;
-    public $qrCodeBase64;
+    public $qrCodeBinary;
     public $voucherCode;
+    public $UseWhatsApp = true;
 
-    public function __construct(Guest $guest, string $qrCodeBase64, string $voucherCode)
+    public function __construct(Guest $guest, string $qrCodeBinary, string $voucherCode)
     {
         $this->guest = $guest;
-        $this->qrCodeBase64 = $qrCodeBase64;
+        $this->qrCodeBinary = $qrCodeBinary;
         $this->voucherCode = $voucherCode;
     }
 
     public function build()
     {
         return $this->subject('Voucher Diskon 10% Anda')
-                    ->view('emails.voucher');
+            ->view('emails.voucher');
     }
 }

@@ -62,32 +62,32 @@
     <div class="fixed bottom-5 right-5 z-[9999] max-w-md sm:left-auto left-2.5">
         <!-- Error validasi -->
         @if ($errors->any())
-            <div class="bg-red-50 border-l-4 border-red-500 text-red-800 p-4 rounded-lg shadow-lg mb-3 flex items-start gap-3 animate-slide-in">
-                <i class='bx bx-error text-2xl flex-shrink-0'></i>
-                <div class="flex-1">
-                    <ul class="list-disc pl-5 space-y-1">
-                        @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                </div>
-                <button onclick="this.parentElement.classList.add('animate-slide-out')" class="text-red-600 hover:text-red-800 text-xl opacity-70 hover:opacity-100 transition-opacity flex-shrink-0">
-                    <i class='bx bx-x'></i>
-                </button>
+        <div class="bg-red-50 border-l-4 border-red-500 text-red-800 p-4 rounded-lg shadow-lg mb-3 flex items-start gap-3 animate-slide-in">
+            <i class='bx bx-error text-2xl flex-shrink-0'></i>
+            <div class="flex-1">
+                <ul class="list-disc pl-5 space-y-1">
+                    @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
             </div>
+            <button onclick="this.parentElement.classList.add('animate-slide-out')" class="text-red-600 hover:text-red-800 text-xl opacity-70 hover:opacity-100 transition-opacity flex-shrink-0">
+                <i class='bx bx-x'></i>
+            </button>
+        </div>
         @endif
 
         <!-- Pesan sukses -->
         @if (session('success'))
-            <div class="bg-green-50 border-l-4 border-green-500 text-green-800 p-4 rounded-lg shadow-lg mb-3 flex items-start gap-3 animate-slide-in">
-                <i class='bx bx-check-circle text-2xl flex-shrink-0'></i>
-                <div class="flex-1">
-                    {{ session('success') }}
-                </div>
-                <button onclick="this.parentElement.classList.add('animate-slide-out')" class="text-green-600 hover:text-green-800 text-xl opacity-70 hover:opacity-100 transition-opacity flex-shrink-0">
-                    <i class='bx bx-x'></i>
-                </button>
+        <div class="bg-green-50 border-l-4 border-green-500 text-green-800 p-4 rounded-lg shadow-lg mb-3 flex items-start gap-3 animate-slide-in">
+            <i class='bx bx-check-circle text-2xl flex-shrink-0'></i>
+            <div class="flex-1">
+                {{ session('success') }}
             </div>
+            <button onclick="this.parentElement.classList.add('animate-slide-out')" class="text-green-600 hover:text-green-800 text-xl opacity-70 hover:opacity-100 transition-opacity flex-shrink-0">
+                <i class='bx bx-x'></i>
+            </button>
+        </div>
         @endif
     </div>
 
@@ -164,15 +164,19 @@
             <form action="{{ route('rsvp.store') }}" method="POST">
                 @csrf
                 <p>Name</p>
-                <input type="text" name="name" id="" value="{{ old('name') }}" required>
+                <input type="text" name="name" value="{{ old('name') }}" required>
+                @if ($UseWhatsApp)
+                <p>No. WhatsApp (cth: 62812xxxx)</p>
+                <input type="text" name="phone" value="{{ old('phone') }}" required>
+                @else
                 <p>Email</p>
-                <input type="email" name="email" id="" value="{{ old('email') }}" required>
-                <input type="hidden" name="phone" value="deactivated">
+                <input type="email" name="email" value="{{ old('email') }}" required>
+                @endif
                 <label for="status">Attandence :</label>
                 <select id="status" name="rsvp_status">
                     <option value="">-- Choose --</option>
                     <option value="coming">Attending</option>
-                    <option value=">not_coming">Not Attending</option>
+                    <option value="not_coming">Not Attending</option>
                 </select>
                 <p>Message for the Bride</p>
                 <textarea name="" id=""></textarea>

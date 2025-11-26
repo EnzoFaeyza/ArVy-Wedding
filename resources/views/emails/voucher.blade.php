@@ -44,7 +44,7 @@
                             <!-- QR kecil -->
                             <tr>
                                 <td align="center" style="padding-top:20px;">
-                                    <img src="{{ $qrCodeBase64 }}" width="120" style="border-radius:6px;">
+                                    <img src="{{ $message->embedData($qrCodeBinary, 'voucher-qr.png', 'image/png') }}" width="120" style="border-radius:6px;">
                                 </td>
                             </tr>
 
