@@ -625,15 +625,16 @@ textarea{
         left: 30px;
         font-size: 50px;
         color: #321f12;
-        background-color: #FBF5E1;
-        border-radius: 50%;
+        background-color: #ffffff;
+        box-shadow: rgba(85, 84, 84, 0.768) 5px 5px 10px;
+        border-radius: 10px;
         width: 70px;
         height: 70px;
         display: flex;
         align-content: center;
         text-align: center;
         z-index: 800;
-        border: #321F12 2px solid;
+        border: rgba(85, 84, 84, 0.768) 2px solid;
     }
 
     .main-2 .container-title-2{
