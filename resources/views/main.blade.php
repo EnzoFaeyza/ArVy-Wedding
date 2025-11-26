@@ -63,7 +63,7 @@
             </div>
             <img src="{{ asset('img/hand (2).png') }}" alt="">
         </div>
-        <div class="container-image" data-aos="fade-left" data-aos-duration="3000" data-aos-delay="500">
+        <div class="container-image" data-aos="fade-down" data-aos-duration="1500" data-aos-delay="500">
             <img class="img1" src="{{ asset('img/image (6).png') }}" alt="">
             <img class="img2" src="{{ asset('img/image (5).png') }}" alt="">
             <img class="img3" src="{{ asset('img/image (4).png') }}" alt="">
@@ -96,6 +96,12 @@
                 <input type="text" name="" id="">
                 <p>Email</p>
                 <input type="email" name="" id="">
+                <label for="status">Attandence :</label>
+                    <select id="status" name="status">
+                        <option value="">-- Choose --</option>
+                        <option value="Attending">Attending</option>
+                        <option value=">Not_Attending">Not Attending</option>
+                    </select>
                 <p>Message for the Bride</p>
                 <textarea name="" id=""></textarea>
                 <div><input type="submit" value="Send"> </div>
@@ -150,29 +156,28 @@
             </div>
         </div>
     </section>
-    <section class="main-6" id="Location" data-aos="fade-up" data-aos-duration="1500" data-aos-delay="1500"
+    <section class="main-6" id="Location" data-aos="fade-up" data-aos-duration="1500" data-aos-delay="1000"
         data-aos-easing="linear">
-        <p data-aos="fade-up" data-aos-duration="1500" data-aos-delay="1500" data-aos-easing="linear">Our wedding will
+        <p >Our wedding will
             be held at:</p><br>
-        <a href="https://maps.app.goo.gl/eUfKYi426GjqNyVz5" target="_blank" data-aos="fade-up" data-aos-duration="1500"
-            data-aos-delay="1000" data-aos-easing="linear">SMK Telkom Purwokerto Hall</a><br>
-        <p data-aos="fade-up" data-aos-duration="3000" data-aos-delay="1500" data-aos-easing="linear">Jl. DI Panjaitan
+        <a href="https://maps.app.goo.gl/eUfKYi426GjqNyVz5" target="_blank" >SMK Telkom Purwokerto Hall</a><br>
+        <p >Jl. DI Panjaitan
             No.128, Karangreja, South Purwokerto</p>
     </section>
     <section class="main-7" id="Contact">
         <h1 style="font-family: var(--primary-font);">C<span style="font-family:'fontspring'">ontact</span></h1>
         <div class="container-contact">
             <img src="{{ asset("img/pita.png") }}" alt="" data-aos="fade-right" data-aos-duration="1500"
-                data-aos-easing="linear" data-aos-delay="1500">
+                data-aos-easing="linear" data-aos-delay="1000">
             <div class="contact">
-                <p data-aos="fade-up" data-aos-duration="1500" data-aos-easing="linear" data-aos-delay="1500">For any
+                <p data-aos="fade-up" data-aos-duration="1500" data-aos-easing="linear" data-aos-delay="1000">For any
                     on-site needs or event coordination,<br> please reach out to our wedding coordinator.</p>
-                <div data-aos="fade-up" data-aos-duration="1500" data-aos-easing="linear" data-aos-delay="1500">
+                <div data-aos="fade-up" data-aos-duration="1500" data-aos-easing="linear" data-aos-delay="1000">
                     <a href="https://wa.me/6282322494286" target="_blank">Contact(+62 823-2249-4286) </a>
                     <a href="https://wa.me/6281227522589" target="_blank">Contact(+62 812-2752-2589)</a>
                 </div>
             </div>
-            <img src="{{ asset("img/pita.png") }}" alt="" data-aos="fade-left" data-aos-duration="1500"
+            <img src="{{ asset("img/pita.png") }}" alt="" data-aos="fade-left" data-aos-duration="1000"
                 data-aos-easing="linear" data-aos-delay="1500">
         </div>
     </section>
