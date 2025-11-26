@@ -6,9 +6,18 @@ use App\Http\Controllers\VoucherRedeemController; // <-- TAMBAHKAN INI
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
 
-Route::get('/', function () {
+/*Route::get('/', function () {
     return view('main');
 });
+
+Route::get('/test', function () {
+    return view('test');
+});*/
+
+//test send data from main
+Route::get('/', [RsvpController::class, 'index'])->name('main');
+Route::post('/', [RsvpController::class, 'store'])->name('rsvp.store');
+//eo test send data
 
 // Halaman RSVP untuk Tamu
 Route::get('/rsvp', [RsvpController::class, 'index'])->name('rsvp.index');

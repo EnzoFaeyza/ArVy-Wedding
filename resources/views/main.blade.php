@@ -18,11 +18,79 @@
     <link href='https://cdn.boxicons.com/3.0.4/fonts/basic/boxicons.min.css' rel='stylesheet'>
     <link rel="icon" type="image/icon" href="{{ asset('img/logokelas.png') }}">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
 
+    <style>
+        @keyframes slideInRight {
+            from {
+                transform: translateX(400px);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideOutRight {
+            from {
+                transform: translateX(0);
+                opacity: 1;
+            }
+
+            to {
+                transform: translateX(400px);
+                opacity: 0;
+            }
+        }
+
+        .animate-slide-in {
+            animation: slideInRight 0.4s ease-out;
+        }
+
+        .animate-slide-out {
+            animation: slideOutRight 0.3s ease-in forwards;
+        }
+    </style>
 
 </head>
 
 <body>
+
+    <!-- Notification Container -->
+    <div class="fixed bottom-5 right-5 z-[9999] max-w-md sm:left-auto left-2.5">
+        <!-- Error validasi -->
+        @if ($errors->any())
+            <div class="bg-red-50 border-l-4 border-red-500 text-red-800 p-4 rounded-lg shadow-lg mb-3 flex items-start gap-3 animate-slide-in">
+                <i class='bx bx-error text-2xl flex-shrink-0'></i>
+                <div class="flex-1">
+                    <ul class="list-disc pl-5 space-y-1">
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+                <button onclick="this.parentElement.classList.add('animate-slide-out')" class="text-red-600 hover:text-red-800 text-xl opacity-70 hover:opacity-100 transition-opacity flex-shrink-0">
+                    <i class='bx bx-x'></i>
+                </button>
+            </div>
+        @endif
+
+        <!-- Pesan sukses -->
+        @if (session('success'))
+            <div class="bg-green-50 border-l-4 border-green-500 text-green-800 p-4 rounded-lg shadow-lg mb-3 flex items-start gap-3 animate-slide-in">
+                <i class='bx bx-check-circle text-2xl flex-shrink-0'></i>
+                <div class="flex-1">
+                    {{ session('success') }}
+                </div>
+                <button onclick="this.parentElement.classList.add('animate-slide-out')" class="text-green-600 hover:text-green-800 text-xl opacity-70 hover:opacity-100 transition-opacity flex-shrink-0">
+                    <i class='bx bx-x'></i>
+                </button>
+            </div>
+        @endif
+    </div>
+
     <img class="up-letter" id="up" src="{{ asset('img/up.png') }}" data-src-hp="{{ asset('img/up-hp.png') }}"
         data-src-pc="{{ asset('img/up.png') }}" alt="">
     <p class="scroll-text">Scroll<i class='bx  bx-caret-big-down'></i> </p>
@@ -74,6 +142,7 @@
     </section>
 
     <section class="main-3" id="Registration">
+
         <div class="welcome-text">
             <img src="{{ asset('img/welcome.png') }}" alt="" data-aos="fade-down" data-aos-duration="1500"
                 data-aos-easing="linear" data-aos-delay="1000">
@@ -89,19 +158,22 @@
                 </p>
             </div>
         </div>
+
         <div class="form-name">
             <img src="{{ asset('img/frameacc.png') }}" alt="">
-            <form action="">
+            <form action="{{ route('rsvp.store') }}" method="POST">
+                @csrf
                 <p>Name</p>
-                <input type="text" name="" id="">
+                <input type="text" name="name" id="" value="{{ old('name') }}" required>
                 <p>Email</p>
-                <input type="email" name="" id="">
+                <input type="email" name="email" id="" value="{{ old('email') }}" required>
+                <input type="hidden" name="phone" value="deactivated">
                 <label for="status">Attandence :</label>
-                    <select id="status" name="status">
-                        <option value="">-- Choose --</option>
-                        <option value="Attending">Attending</option>
-                        <option value=">Not_Attending">Not Attending</option>
-                    </select>
+                <select id="status" name="rsvp_status">
+                    <option value="">-- Choose --</option>
+                    <option value="coming">Attending</option>
+                    <option value=">not_coming">Not Attending</option>
+                </select>
                 <p>Message for the Bride</p>
                 <textarea name="" id=""></textarea>
                 <div><input type="submit" value="Send"> </div>
@@ -126,7 +198,7 @@
     </section>
 
     <section class="main-5" id="Schedule">
-        <img class="img-bg-5" src="{{ asset("img/Group 7 (2).png") }}" alt="">  
+        <img class="img-bg-5" src="{{ asset("img/Group 7 (2).png") }}" alt="">
         <div class="main5-layer1">
             <div class="main5-layer2">
                 <h1>A <span style="font-family:fontspring">genda</span></h1>
@@ -158,10 +230,10 @@
     </section>
     <section class="main-6" id="Location" data-aos="fade-up" data-aos-duration="1500" data-aos-delay="1000"
         data-aos-easing="linear">
-        <p >Our wedding will
+        <p>Our wedding will
             be held at:</p><br>
-        <a href="https://maps.app.goo.gl/eUfKYi426GjqNyVz5" target="_blank" >SMK Telkom Purwokerto Hall</a><br>
-        <p >Jl. DI Panjaitan
+        <a href="https://maps.app.goo.gl/eUfKYi426GjqNyVz5" target="_blank">SMK Telkom Purwokerto Hall</a><br>
+        <p>Jl. DI Panjaitan
             No.128, Karangreja, South Purwokerto</p>
     </section>
     <section class="main-7" id="Contact">
