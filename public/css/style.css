@@ -279,6 +279,10 @@ nav img{
     justify-content: center;
 }
 
+.title-regis{
+    display: none;
+}
+
 .form-name img{
     position: absolute;
     z-index: 1;

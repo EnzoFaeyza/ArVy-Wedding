@@ -20,10 +20,11 @@ function updateImage() {
     if (window.innerWidth < 600) {
         up_hp.src = up_src_hp;
         down_hp.src = down_src_hp;
-        bg_acc.src = "img/frameacc-hp.png";
+        
     } else {
         up_hp.src = up_src_pc;
         down_hp.src = down_src_pc;
+        bg_acc.src = "img/frameacc.png"
     }
 }
 
