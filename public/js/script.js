@@ -11,7 +11,7 @@ window.addEventListener("scroll", () => {
 
 let up_hp = document.getElementById("up");
 let down_hp = document.getElementById("down");
-
+let bg_acc = document.getElementById("bg-acc");
 function updateImage() {
     const up_src_hp = up_hp.getAttribute("data-src-hp");
     const down_src_hp = down_hp.getAttribute("data-src-hp");
@@ -20,6 +20,7 @@ function updateImage() {
     if (window.innerWidth < 600) {
         up_hp.src = up_src_hp;
         down_hp.src = down_src_hp;
+        bg_acc.src = "img/frameacc-hp.png";
     } else {
         up_hp.src = up_src_pc;
         down_hp.src = down_src_pc;

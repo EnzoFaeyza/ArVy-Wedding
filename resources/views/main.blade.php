@@ -160,7 +160,8 @@
         </div>
 
         <div class="form-name">
-            <img src="{{ asset('img/frameacc.png') }}" alt="">
+            <img src="{{ asset('img/frameacc.png') }}" alt="" id="bg-acc" class="bg-acc">
+            <p class="title-regis">Registration</p>
             <form action="{{ route('rsvp.store') }}" method="POST">
                 @csrf
                 <p>Name</p>
