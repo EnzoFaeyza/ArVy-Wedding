@@ -28,9 +28,18 @@ Route::post('/rsvp', [RsvpController::class, 'store'])->name('rsvp.store');
 
 */
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/dashboard', [App\Http\Controllers\GuestController::class, 'index'])
+    ->middleware(['auth', 'verified'])->name('dashboard');
+
+// Guest CRUD routes
+Route::middleware(['auth'])->group(function () {
+    Route::get('/guests/create', [App\Http\Controllers\GuestController::class, 'create'])->name('guests.create');
+    Route::post('/guests', [App\Http\Controllers\GuestController::class, 'store'])->name('guests.store');
+    Route::get('/guests/{guest}', [App\Http\Controllers\GuestController::class, 'show'])->name('guests.show');
+    Route::get('/guests/{guest}/edit', [App\Http\Controllers\GuestController::class, 'edit'])->name('guests.edit');
+    Route::put('/guests/{guest}', [App\Http\Controllers\GuestController::class, 'update'])->name('guests.update');
+    Route::delete('/guests/{guest}', [App\Http\Controllers\GuestController::class, 'destroy'])->name('guests.destroy');
+});
 
 // Halaman Scanner dan API untuk Staf Merchandise (Wajib Login)
 Route::middleware(['auth'])->group(function () {
